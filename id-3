@@ -1,0 +1,621 @@
+(base) dms@dms-OptiPlex-3080:~$ isqlplus
+User Name:csitc2141013230
+Password:
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Apr 1 10:06:04 2024
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, Oracle Label Security, OLAP, Data Mining,
+Oracle Database Vault and Real Application Testing options
+
+SQL> SELECT NAME, DEPARTMENT,1.05*SALARY+0.2*SALARY+SALARY"GROSS SALARY",1.05*SALARY+0.2*SALARY+SALARY-0.3*SALARY "NET SALARY" FROM INSTRUCTOR;
+SELECT NAME, DEPARTMENT,1.05*SALARY+0.2*SALARY+SALARY"GROSS SALARY",1.05*SALARY+0.2*SALARY+SALARY-0.3*SALARY "NET SALARY" FROM INSTRUCTOR
+             *
+ERROR at line 1:
+ORA-00904: "DEPARTMENT": invalid identifier
+
+
+SQL> SELECT NAME, DEPARTMENT,1.05*SALARY+0.2*SALARY+SALARY"GROSS SALARY",1.05*SALARY+0.2*SALARY+SALARY-0.3*SALARY "NET SALARY" FROM INSTRUCTOR;^Z
+[1]+  Stopped                 isqlplus
+(base) dms@dms-OptiPlex-3080:~$ sqlplus
+
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Apr 1 10:13:34 2024
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+Enter user-name: ^Z
+[2]+  Stopped                 sqlplus
+(base) dms@dms-OptiPlex-3080:~$ isqlplus
+User Name:csitc2141013230
+Password:
+SQL*Plus: Release 12.2.0.1.0 Production on Mon Apr 1 10:13:57 2024
+
+Copyright (c) 1982, 2016, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production
+With the Partitioning, Oracle Label Security, OLAP, Data Mining,
+Oracle Database Vault and Real Application Testing options
+
+SQL> select * from instructor;                                                                                                                 
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10101 Srinivasan			  Comp. Sci.		    65000
+
+
+     12121 Wu				  Finance		    90000
+
+
+     15151 Mozart			  Music 		    40000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     22222 Einstein			  Physics		    95000
+
+
+     32343 El Said			  History		    60000
+
+
+     33456 Gold 			  Physics		    87000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     45565 Katz 			  Comp. Sci.		    75000
+
+
+     58583 Califieri			  History		    62000
+
+
+     76543 Singh			  Finance		    80000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     76766 Crick			  Biology		    72000
+
+
+     83821 Brandt			  Comp. Sci.		    92000
+
+
+     98345 Kim				  Elec. Eng.		    80000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10000 Sohan			  Physics		    20000
+04-03-2024
+
+
+13 rows selected.
+
+SQL> SELECT NAME, DEPT_NAME,1.05*SALARY+0.2*SALARY+SALARY"GROSS SALARY",1.05*SALARY+0.2*SALARY+SALARY-0.3*SALARY "NET SALARY" FROM INSTRUCTOR;
+
+NAME			       DEPT_NAME	    GROSS SALARY NET SALARY
+------------------------------ -------------------- ------------ ----------
+Srinivasan		       Comp. Sci.		  146250     126750
+Wu			       Finance			  202500     175500
+Mozart			       Music			   90000      78000
+Einstein		       Physics			  213750     185250
+El Said 		       History			  135000     117000
+Gold			       Physics			  195750     169650
+Katz			       Comp. Sci.		  168750     146250
+Califieri		       History			  139500     120900
+Singh			       Finance			  180000     156000
+Crick			       Biology			  162000     140400
+Brandt			       Comp. Sci.		  207000     179400
+
+NAME			       DEPT_NAME	    GROSS SALARY NET SALARY
+------------------------------ -------------------- ------------ ----------
+Kim			       Elec. Eng.		  180000     156000
+Sohan			       Physics			   45000      39000
+
+13 rows selected.
+
+SQL> SELECT course_id, TITLE, CREDITS FROM COURSE WHERE DEPT_NAME IN('PHYSICS', 'MUSIC','FINANCE','BIOLOGY');                                  
+
+no rows selected
+
+SQL> desc course;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ COURSE_ID					    VARCHAR2(10)
+ TITLE						    VARCHAR2(30)
+ DEPT_NAME					    VARCHAR2(20)
+ CREDITS					    NUMBER(2)
+
+SQL> select * from course;
+
+COURSE_ID  TITLE			  DEPT_NAME		  CREDITS
+---------- ------------------------------ -------------------- ----------
+BIO-101    Intro. to Biology		  Biology			4
+BIO-301    Genetics			  Biology			4
+BIO-399    Computational Biology	  Biology			3
+CS-101	   Intro. to Computer Science	  Comp. Sci.			4
+CS-190	   Game Design			  Comp. Sci.			4
+CS-315	   Robotics			  Comp. Sci.			3
+CS-319	   Image Processing		  Comp. Sci.			3
+CS-347	   Database System Concepts	  Comp. Sci.			3
+EE-181	   Intro. to Digital Systems	  Elec. Eng.			3
+FIN-201    Investment Banking		  Finance			3
+HIS-351    World History		  History			3
+
+COURSE_ID  TITLE			  DEPT_NAME		  CREDITS
+---------- ------------------------------ -------------------- ----------
+MU-199	   Music Vido Production	  Music 			3
+PHY-101    Physical Principles		  Physics			4
+
+13 rows selected.
+
+SQL> SELECT course_id, TITLE, CREDITS FROM COURSE WHERE DEPT_NAME IN('Physics', 'Music','Finance','Biology');
+
+COURSE_ID  TITLE			     CREDITS
+---------- ------------------------------ ----------
+BIO-101    Intro. to Biology			   4
+BIO-301    Genetics				   4
+BIO-399    Computational Biology		   3
+FIN-201    Investment Banking			   3
+MU-199	   Music Vido Production		   3
+PHY-101    Physical Principles			   4
+
+6 rows selected.
+
+SQL> SELECT * FROM INSTRUCTOR WHERE NAME LIKE 'K%' AND SALARY>=65000;
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     45565 Katz 			  Comp. Sci.		    75000
+
+
+     98345 Kim				  Elec. Eng.		    80000
+
+
+
+SQL> SELECT * FROM INSTRUCTOR WHERE SALARY  BETWEEN 60000 AND 80000;
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10101 Srinivasan			  Comp. Sci.		    65000
+
+
+     32343 El Said			  History		    60000
+
+
+     45565 Katz 			  Comp. Sci.		    75000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     58583 Califieri			  History		    62000
+
+
+     76543 Singh			  Finance		    80000
+
+
+     76766 Crick			  Biology		    72000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     98345 Kim				  Elec. Eng.		    80000
+
+
+
+7 rows selected.
+
+SQL> SELECT * FROM INSTRUCTOR WHERE NAME LIKE '_R%';
+
+no rows selected
+
+SQL> select name from instructor;
+
+NAME
+------------------------------
+Srinivasan
+Wu
+Mozart
+Einstein
+El Said
+Gold
+Katz
+Califieri
+Singh
+Crick
+Brandt
+
+NAME
+------------------------------
+Kim
+Sohan
+
+13 rows selected.
+
+SQL> SELECT * FROM INSTRUCTOR WHERE NAME LIKE '_r%';
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10101 Srinivasan			  Comp. Sci.		    65000
+
+
+     76766 Crick			  Biology		    72000
+
+
+     83821 Brandt			  Comp. Sci.		    92000
+
+
+
+SQL> select name from instructor where dept_name='Comp. Sci.' order by salary desc;
+
+NAME
+------------------------------
+Brandt
+Katz
+Srinivasan
+
+SQL> select name, salary from instructor where dept_name='Comp. Sci.' order by Salary desc;
+
+NAME				   SALARY
+------------------------------ ----------
+Brandt				    92000
+Katz				    75000
+Srinivasan			    65000
+
+SQL> update instructor set salary=salary+salary*0.15;
+
+13 rows updated.
+
+Commit complete.
+SQL> select name,salary from instructor;
+
+NAME				   SALARY
+------------------------------ ----------
+Srinivasan			    74750
+Wu				   103500
+Mozart				    46000
+Einstein			   109250
+El Said 			    69000
+Gold				   100050
+Katz				    86250
+Califieri			    71300
+Singh				    92000
+Crick				    82800
+Brandt				   105800
+
+NAME				   SALARY
+------------------------------ ----------
+Kim				    92000
+Sohan				    23000
+
+13 rows selected.
+
+SQL> update instructor set salary=salary+salary*0.03 where dept_name='Comp. Sci.' and salary<70000;
+
+0 rows updated.
+
+Commit complete.
+SQL> select * from instructor;
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10101 Srinivasan			  Comp. Sci.		    74750
+
+
+     12121 Wu				  Finance		   103500
+
+
+     15151 Mozart			  Music 		    46000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     22222 Einstein			  Physics		   109250
+
+
+     32343 El Said			  History		    69000
+
+
+     33456 Gold 			  Physics		   100050
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     45565 Katz 			  Comp. Sci.		    86250
+
+
+     58583 Califieri			  History		    71300
+
+
+     76543 Singh			  Finance		    92000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     76766 Crick			  Biology		    82800
+
+
+     83821 Brandt			  Comp. Sci.		   105800
+
+
+     98345 Kim				  Elec. Eng.		    92000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10000 Sohan			  Physics		    23000
+04-03-2024
+
+
+13 rows selected.
+
+SQL> select name,salary*12 from instructor;
+
+NAME				SALARY*12
+------------------------------ ----------
+Srinivasan			   897000
+Wu				  1242000
+Mozart				   552000
+Einstein			  1311000
+El Said 			   828000
+Gold				  1200600
+Katz				  1035000
+Califieri			   855600
+Singh				  1104000
+Crick				   993600
+Brandt				  1269600
+
+NAME				SALARY*12
+------------------------------ ----------
+Kim				  1104000
+Sohan				   276000
+
+13 rows selected.
+
+SQL> select name,salary*12 as Annual_Salary from instructor;
+
+NAME			       ANNUAL_SALARY
+------------------------------ -------------
+Srinivasan			      897000
+Wu				     1242000
+Mozart				      552000
+Einstein			     1311000
+El Said 			      828000
+Gold				     1200600
+Katz				     1035000
+Califieri			      855600
+Singh				     1104000
+Crick				      993600
+Brandt				     1269600
+
+NAME			       ANNUAL_SALARY
+------------------------------ -------------
+Kim				     1104000
+Sohan				      276000
+
+13 rows selected.
+
+SQL> update course set title='Game Theory' where title='Game Design';
+
+1 row updated.
+
+Commit complete.
+SQL> select * from course;
+
+COURSE_ID  TITLE			  DEPT_NAME		  CREDITS
+---------- ------------------------------ -------------------- ----------
+BIO-101    Intro. to Biology		  Biology			4
+BIO-301    Genetics			  Biology			4
+BIO-399    Computational Biology	  Biology			3
+CS-101	   Intro. to Computer Science	  Comp. Sci.			4
+CS-190	   Game Theory			  Comp. Sci.			4
+CS-315	   Robotics			  Comp. Sci.			3
+CS-319	   Image Processing		  Comp. Sci.			3
+CS-347	   Database System Concepts	  Comp. Sci.			3
+EE-181	   Intro. to Digital Systems	  Elec. Eng.			3
+FIN-201    Investment Banking		  Finance			3
+HIS-351    World History		  History			3
+
+COURSE_ID  TITLE			  DEPT_NAME		  CREDITS
+---------- ------------------------------ -------------------- ----------
+MU-199	   Music Vido Production	  Music 			3
+PHY-101    Physical Principles		  Physics			4
+
+13 rows selected.
+
+SQL> delete from Instructor where dept_name='History';                                                                                                   
+
+2 rows deleted.
+
+Commit complete.
+SQL> select * from Instructor;
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     10101 Srinivasan			  Comp. Sci.		    74750
+
+
+     12121 Wu				  Finance		   103500
+
+
+     15151 Mozart			  Music 		    46000
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     22222 Einstein			  Physics		   109250
+
+
+     33456 Gold 			  Physics		   100050
+
+
+     45565 Katz 			  Comp. Sci.		    86250
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     76543 Singh			  Finance		    92000
+
+
+     76766 Crick			  Biology		    82800
+
+
+     83821 Brandt			  Comp. Sci.		   105800
+
+
+
+	ID NAME 			  DEPT_NAME		   SALARY
+---------- ------------------------------ -------------------- ----------
+DATE_OF_JOIN
+--------------------
+     98345 Kim				  Elec. Eng.		    92000
+
+
+     10000 Sohan			  Physics		    23000
+04-03-2024
+
+
+11 rows selected.
+
+SQL> delete from course where course_id like 'BIO%';
+
+3 rows deleted.
+
+Commit complete.
+SQL> select * from course;
+
+COURSE_ID  TITLE			  DEPT_NAME		  CREDITS
+---------- ------------------------------ -------------------- ----------
+CS-101	   Intro. to Computer Science	  Comp. Sci.			4
+CS-190	   Game Theory			  Comp. Sci.			4
+CS-315	   Robotics			  Comp. Sci.			3
+CS-319	   Image Processing		  Comp. Sci.			3
+CS-347	   Database System Concepts	  Comp. Sci.			3
+EE-181	   Intro. to Digital Systems	  Elec. Eng.			3
+FIN-201    Investment Banking		  Finance			3
+HIS-351    World History		  History			3
+MU-199	   Music Vido Production	  Music 			3
+PHY-101    Physical Principles		  Physics			4
+
+10 rows selected.
+
+SQL> select avg(salary) as SAL from instructor where dept_name='Physics';
+
+       SAL
+----------
+77433.3333
+
+SQL> select dept_name, avg(salary) as sal from instructor;
+select dept_name, avg(salary) as sal from instructor
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function
+
+
+SQL> select salary*rand() from instructor;      
+select salary*rand() from instructor
+              *
+ERROR at line 1:
+ORA-00904: "RAND": invalid identifier
+
+
+SQL> select salary*rand() as sal from instructor;
+select salary*rand() as sal from instructor
+              *
+ERROR at line 1:
+ORA-00904: "RAND": invalid identifier
+
+
+SQL> pow(3,5);     
+SP2-0042: unknown command "pow(3,5)" - rest of line ignored.
+SQL> select power(2,3) As po from dual;
+
+	PO
+----------
+	 8
+
+SQL> desc dual;
+ Name					   Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY						    VARCHAR2(1)
+
+SQL> select rand() as ran from dual;
+select rand() as ran from dual
+       *
+ERROR at line 1:
+ORA-00904: "RAND": invalid identifier
+
+
+SQL> select * from dual;
+
+D
+-
+X
+
+SQL> select dept_name, avg(salary) as sal from instructor group by dept_name;
+
+DEPT_NAME		    SAL
+-------------------- ----------
+Elec. Eng.		  92000
+Physics 	     77433.3333
+Comp. Sci.	     88933.3333
+Finance 		  97750
+Biology 		  82800
+Music			  46000
+
+6 rows selected.
+
+SQL> 
+
